@@ -143,14 +143,24 @@ def dealFile(sf):
     ddir = gConf.dst_src_dir + os.sep + s
 
     content = open(sf, 'r').read()
-    allClass = re.findall(gPattern.class_p, content)
-
-    if allClass != None and len(allClass):
+    if isObjc(content):
         dealObjcHead(ddir, sf)
     else:
         dealCppHeader(ddir, sf)
 
     return
+
+# 判断头文件和
+def isObjc(content):
+    yesOrNo=False
+    allClass = re.findall(gPattern.class_p, content)
+    if allClass != None and len(allClass):
+        yesOrNo=True
+    imports = re.findall(r'''^#import.*?\.h''', content, re.S|re.M)
+    if imports != None and len(imports):
+        yesOrNo=True
+
+    return yesOrNo
 
 def dealDir(sd):
     s1 = os.path.abspath(sd)

@@ -224,10 +224,15 @@ def configEnv():
     res1 = re.search(gPattern.sysroot_p, rst)
     res2 = re.search(gPattern.res_dir_p, rst)
 
-    if res1==None or res2==None:
-        raise "No clang environment..."
-        exit(1)
-    gConf.sysroot = "-isysroot " + res1.groups()[0]
+    print "res1: %s" % res1
+    print "res2: %s" % res2
+
+
+    # if res1==None or res2==None:
+    #     raise "No clang environment..."
+    #     exit(1)
+
+    # gConf.sysroot = "-isysroot " + res1.groups()[0]
     gConf.res_dir = "-resource-dir " + res2.groups()[0]
 
 
@@ -247,19 +252,3 @@ if __name__ == '__main__':
             dealFile(nf)
 
     buildProj(gConf.dst_dir)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
